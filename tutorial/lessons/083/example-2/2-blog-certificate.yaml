@@ -1,0 +1,23 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: blog-marinyuk-tk
+  namespace: staging
+spec:
+  isCA: false
+  duration: 2160h # 90d
+  renewBefore: 360h # 15d
+  commonName: blog.marinyuk.tk
+  dnsNames:
+  - blog.marinyuk.tk
+  - www.blog.marinyuk.tk
+  secretName: blog-marinyuk-tk-key-pair
+  privateKey:
+    algorithm: RSA
+    encoding: PKCS1
+    size: 4096
+  issuerRef:
+    name: marinyuk-tk-ca
+    kind: ClusterIssuer
+    group: cert-manager.io

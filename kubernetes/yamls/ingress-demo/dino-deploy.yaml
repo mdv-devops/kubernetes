@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: dino
+  name: dino-main
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dino
+  template:
+    metadata:
+      labels:
+        app: dino
+    spec:
+      containers:
+      - image: marinyuk/dino
+        name: dino

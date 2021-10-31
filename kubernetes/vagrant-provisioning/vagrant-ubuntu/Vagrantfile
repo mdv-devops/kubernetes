@@ -1,0 +1,30 @@
+Vagrant.configure(2) do |config|
+
+  config.vm.provision "shell", path: "bootstrap.sh"
+
+  # Kubernetes Master Server
+  config.vm.define "haproxy" do |node|
+
+    node.vm.box               = "generic/ubuntu2004"
+    node.vm.box_check_update  = false
+    node.vm.box_version       = "3.3.0"
+    node.vm.hostname          = "haproxy.example.com"
+
+    node.vm.network "private_network", ip: "172.16.16.200"
+
+    node.vm.provider :virtualbox do |v|
+      v.name    = "haproxy"
+      v.memory  = 1024
+      v.cpus    =  1
+    end
+
+    node.vm.provider :libvirt do |v|
+      v.memory  = 1024
+      v.nested  = true
+      v.cpus    = 1
+    end
+
+#    node.vm.provision "shell", path: "bootstrap_kmaster.sh"
+
+  end
+end
